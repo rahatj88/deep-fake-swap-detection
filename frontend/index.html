@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Deepfake Detection Dashboard — Sandbox (UNVERIFIED)</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header class="app-header">
+      <h1>Deepfake / Face-swap Detection</h1>
+      <p class="sub">Teacher-shareable sandbox · API + UI on 127.0.0.1:8001 · not production accuracy</p>
+    </header>
+
+    <div id="banner" class="banner" role="alert">
+      <strong>UNVERIFIED</strong>
+      <ul id="banner-list"><li>Loading…</li></ul>
+    </div>
+
+    <div class="grid">
+      <section class="panel" id="health-panel">
+        <h2>
+          System Health
+          <button type="button" id="health-refresh" title="Refresh now">Refresh</button>
+        </h2>
+        <p class="hint">Auto-refresh every 10s</p>
+        <dl class="kv" id="health-kv">
+          <dt>Status</dt><dd>Loading…</dd>
+        </dl>
+      </section>
+
+      <section class="panel" id="models-panel">
+        <h2>Models</h2>
+        <p class="hint">Documented expected prod paths · sandbox usually shows “not found”</p>
+        <div style="overflow-x:auto">
+          <table>
+            <thead>
+              <tr><th>Name</th><th>Path</th><th>Size</th><th>Status</th></tr>
+            </thead>
+            <tbody id="models-body">
+              <tr><td colspan="4" class="empty">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="hint" id="hybrid-hint" style="margin-top:0.75rem"></p>
+      </section>
+
+      <section class="panel full" id="analyze-panel">
+        <h2>Upload &amp; Analyze</h2>
+        <p class="hint" id="upload-hint">Accepted: mp4, mov, avi, mkv · max size loading…</p>
+        <div class="drop" id="dropzone">
+          <p><strong>Drop a video here</strong> or choose a file</p>
+          <p class="file-name" id="chosen-name">No file selected</p>
+          <div class="actions">
+            <input type="file" id="file-input" accept=".mp4,.mov,.avi,.mkv,video/mp4,video/quicktime,video/x-msvideo,video/x-matroska" hidden />
+            <button type="button" id="pick-btn">Choose file</button>
+            <button type="button" class="primary" id="analyze-btn" disabled>Analyze</button>
+          </div>
+        </div>
+        <div class="progress" id="progress"><span></span></div>
+        <div class="err" id="analyze-err"></div>
+        <div class="result" id="analyze-result">
+          <div class="decision" id="decision">—</div>
+          <dl class="kv" id="result-kv"></dl>
+        </div>
+      </section>
+
+      <section class="panel" id="history-panel">
+        <h2>History</h2>
+        <p class="hint">In-memory only · cap 50 · cleared on restart</p>
+        <div style="overflow-x:auto">
+          <table>
+            <thead>
+              <tr><th>File</th><th>Decision</th><th>Conf.</th><th>Time</th><th>Mode</th></tr>
+            </thead>
+            <tbody id="history-body">
+              <tr><td colspan="5" class="empty">No analyses yet</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel" id="findings-panel">
+        <h2>Findings (REVIEW.md)</h2>
+        <div style="overflow-x:auto">
+          <table>
+            <thead>
+              <tr><th>Severity</th><th>Where</th><th>Issue</th><th>Fix</th></tr>
+            </thead>
+            <tbody id="findings-body">
+              <tr><td colspan="4" class="empty">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      Sandbox demo · mock or heuristic inference labeled UNVERIFIED · hybrid rule not confirmed by owner
+    </footer>
+  </div>
+  <script src="/static/app.js"></script>
+</body>
+</html>
